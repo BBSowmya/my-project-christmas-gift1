@@ -131,9 +131,13 @@ h1 {
 </head>
 
 <body>
-    <audio controls loop>
-        <source src ="music.mp3" type="audio/mpeg">
-    </audio>
+
+<!-- AUDIO (no autoplay – user interaction required) -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+</audio>
+
 <h1>MERRY CHRISTMAS</h1>
 <p class="instructions">Click the gift 5 times 🎁</p>
 
@@ -142,11 +146,14 @@ h1 {
     <div class="ribbon-vertical"></div>
     <div class="ribbon-horizontal"></div>
 </div>
-    
+
 <div class="message" id="message">
     <div class="message-box">
         <h2>🎄 Special Message 🎄</h2>
-        <p>You are the most <b>PRECIOUS GIFT</b><br>this Christmas ❤️</p>
+        <p>
+            You are the most <b>PRECIOUS GIFT</b><br>
+            this Christmas ❤️
+        </p>
     </div>
 </div>
 
@@ -154,11 +161,18 @@ h1 {
 const gift = document.getElementById("gift");
 const message = document.getElementById("message");
 const instructions = document.querySelector(".instructions");
+const music = document.getElementById("bgMusic");
 
 let clicks = 0;
 
 gift.addEventListener("click", () => {
-    if (gift.classList.contains("open")) return;
+
+    // Play music safely on user interaction
+    music.play().catch(() => {});
+
+    if (gift.classList.contains("open")) {
+        return;
+    }
 
     clicks++;
 
@@ -175,5 +189,3 @@ gift.addEventListener("click", () => {
 
 </body>
 </html>
-
-
